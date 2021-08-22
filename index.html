@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .cate-img {
+            background-position: center top;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .p {
+            background-image: url('./p.webp');
+        }
+        
+        .op {
+            background-image: url('./op.webp');
+        }
+        
+        .scroll {
+            user-select: none;
+            pointer-events: none;
+            color: #fff;
+            -webkit-text-stroke: 2px black;
+            font-size: 5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app" @mousedown="handleClick" @mouseup="handleChange">
+        <div class="cate-img" :class="isActive ? 'op' : 'p'">
+            <span class="scroll">{{scroll}}</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var sound = new Howl({
+            src: ['./pop3.ogg']
+        });
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive: false,
+                scroll: 0
+            },
+            methods: {
+                handleClick() {
+                    sound.play();
+                    this.scroll += 1;
+                    this.isActive = true;
+                },
+                handleChange() {
+                    this.isActive = false;
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
